@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Animals list</title>
@@ -70,9 +70,9 @@
 </head>
 <body>
 
-    <h1>Lista zwierząt</h1>
+    <h1>Animals list</h1>
 
-    <a href="/pets/create" class="button">Dodaj nowe zwierzę</a>
+    <a href="/pets/create" class="button">Add new animal</a>
 
     @if ($errors->any())
         <div class="alert">
@@ -88,20 +88,20 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Nazwa</th>
-                <th>Kategoria</th>
-                <th>Zdjęcia</th>
-                <th>Tagi</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Photos</th>
+                <th>Tags</th>
                 <th>Status</th>
-                <th>Akcje</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($pets as $pet)
                 <tr>
-                    <td>{{ $pet['id'] ?? 'brak' }}</td>
-                    <td>{{ $pet['name'] ?? 'brak' }}</td>
-                    <td>{{ $pet['category']['name'] ?? 'brak' }}</td>
+                    <td>{{ $pet['id'] ?? '-' }}</td>
+                    <td>{{ $pet['name'] ?? '-' }}</td>
+                    <td>{{ $pet['category']['name'] ?? '-' }}</td>
                     <td>
                         @foreach ($pet['photoUrls'] ?? [] as $url)
                                 @foreach ($pet['photoUrls'] ?? [] as $url)
@@ -111,17 +111,17 @@
                     </td>
                     <td>
                         @foreach ($pet['tags'] ?? [] as $tag)
-                            <span>{{ $tag['name'] ?? 'brak' }}</span><br>
+                            <span>{{ $tag['name'] ?? '-' }}</span><br>
                         @endforeach
                     </td>
-                    <td>{{ $pet['status'] ?? 'brak' }}</td>
+                    <td>{{ $pet['status'] ?? '-' }}</td>
                     <td class="actions">
-                        <a href="/pets/{{ $pet['id'] }}/edit" class="button" style="background-color: #2196F3;">Edytuj</a>
+                        <a href="/pets/{{ $pet['id'] }}/edit" class="button" style="background-color: #2196F3;">Edit</a>
 
-                        <form action="/pets/{{ $pet['id'] }}" method="POST" onsubmit="return confirm('Na pewno usunąć?');">
+                        <form action="/pets/{{ $pet['id'] }}" method="POST" onsubmit="return confirm('Are you sure?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">Usuń</button>
+                            <button type="submit">Remove</button>
                         </form>
                     </td>
                 </tr>
