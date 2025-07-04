@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Actions\Pet\Handlers;
 
 use App\Actions\Pet\Commands\DeletePetCommand;
+use App\Data\Pets\Dto\SuccessDto;
 use App\Services\PetApiService;
 use Exception;
-use App\Data\Pets\Dto\SuccessDto;
 
 class DeletePetHandler
 {
@@ -14,7 +15,7 @@ class DeletePetHandler
     {
         $response = $this->petApiService->delete($command->id);
 
-        if (!$response instanceof SuccessDto) {
+        if (! $response instanceof SuccessDto) {
             throw new Exception($response->getMessage());
         }
 

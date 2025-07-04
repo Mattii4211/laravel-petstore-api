@@ -1,21 +1,23 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Actions\Pet\Commands\CreatePetCommand;
-use App\Actions\Pet\Commands\UpdatePetCommand;
 use App\Actions\Pet\Commands\DeletePetCommand;
-use App\Actions\Pet\Queries\GetPetsQuery;
+use App\Actions\Pet\Commands\UpdatePetCommand;
 use App\Actions\Pet\Queries\GetPetByIdQuery;
+use App\Actions\Pet\Queries\GetPetsQuery;
+use App\Data\Pets\Dto\CreatePetDto;
 use App\Data\Pets\Dto\EditPetDto;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Bus;
 use Exception;
+use Illuminate\Support\Facades\Bus;
 
 class PetController extends Controller
 {
     public function index()
     {
         $pets = Bus::dispatch(new GetPetsQuery('available'));
+
         return view('pets.index', compact('pets'));
     }
 
@@ -24,23 +26,13 @@ class PetController extends Controller
         return view('pets.create');
     }
 
-    public function store(Request $request)
+    public function store(CreatePetDto $dto)
     {
-        $validated = $request->validate([
-            'name' => 'required|string',
-            'status' => 'required|string',
-        ]);
-
-        $data = [
-            'id' => rand(1000, 9999),
-            'name' => $validated['name'],
-            'photoUrls' => [],
-            'tags' => [],
-            'status' => $validated['status'],
-            'category' => new \stdClass(),
-        ];
-
-        Bus::dispatch(new CreatePetCommand($data));
+        try {
+            Bus::dispatch(new CreatePetCommand($dto));
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['store_error' => $e->getMessage()])->withInput();
+        }
 
         return redirect('/pets');
     }
@@ -49,7 +41,7 @@ class PetController extends Controller
     {
         $pet = Bus::dispatch(new GetPetByIdQuery($id));
 
-        if (!$pet) {
+        if (! $pet) {
             return redirect('/pets')->withErrors(['Pet not found']);
         }
 
@@ -63,12 +55,17 @@ class PetController extends Controller
         } catch (Exception $e) {
             return redirect()->back()->withErrors(['update_error' => $e->getMessage()])->withInput();
         }
+
         return redirect('/pets');
     }
 
     public function destroy(int $id)
     {
-        Bus::dispatch(new DeletePetCommand( $id));
+        try {
+            Bus::dispatch(new DeletePetCommand($id));
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['delete_error' => $e->getMessage()])->withInput();
+        }
 
         return redirect('/pets');
     }

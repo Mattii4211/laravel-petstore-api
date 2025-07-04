@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Actions\Pet\Handlers;
 
 use App\Actions\Pet\Queries\GetPetsQuery;

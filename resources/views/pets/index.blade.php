@@ -104,11 +104,9 @@
                     <td>{{ $pet['category']['name'] ?? 'brak' }}</td>
                     <td>
                         @foreach ($pet['photoUrls'] ?? [] as $url)
-                           <td>
                                 @foreach ($pet['photoUrls'] ?? [] as $url)
                                     <img src="{{ $url }}" alt="Pet photo" style="max-width: 100px; max-height: 100px; margin: 4px;">
                                 @endforeach
-                            </td>
                         @endforeach
                     </td>
                     <td>
