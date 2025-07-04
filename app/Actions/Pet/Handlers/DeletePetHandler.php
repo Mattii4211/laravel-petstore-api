@@ -9,7 +9,9 @@ use Exception;
 
 class DeletePetHandler
 {
-    public function __construct(protected PetApiService $petApiService) {}
+    public function __construct(protected PetApiService $petApiService)
+    {
+    }
 
     public function handle(DeletePetCommand $command): bool
     {

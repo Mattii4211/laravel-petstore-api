@@ -9,7 +9,8 @@ final class SuccessDto implements ResponseDtoInterface
     public function __construct(
         public int $code,
         public string $message
-    ) {}
+    ) {
+    }
 
     public function getMessage(): string
     {

@@ -11,5 +11,6 @@ final class TagDto extends Data
     public function __construct(
         #[StringType, Nullable]
         public ?string $name,
-    ) {}
+    ) {
+    }
 }

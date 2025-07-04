@@ -9,7 +9,8 @@ final class FailDto implements ResponseDtoInterface
     public function __construct(
         public int $code,
         public string $errorMessage
-    ) {}
+    ) {
+    }
 
     public function getMessage(): string
     {

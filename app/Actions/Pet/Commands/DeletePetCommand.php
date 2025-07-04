@@ -4,5 +4,7 @@ namespace App\Actions\Pet\Commands;
 
 class DeletePetCommand
 {
-    public function __construct(public int $id) {}
+    public function __construct(public int $id)
+    {
+    }
 }

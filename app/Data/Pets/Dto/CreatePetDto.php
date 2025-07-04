@@ -13,18 +13,16 @@ final class CreatePetDto extends Data
     public function __construct(
         #[Required, StringType]
         public string $name,
-
         #[Required, StringType]
         public string $category,
-
         #[ArrayType]
         public array $photoUrls,
 
         /** @var TagDto[]|null */
         #[ArrayType, Nullable]
         public ?array $tags = null,
-
         #[StringType, Nullable]
         public ?string $status = null,
-    ) {}
+    ) {
+    }
 }

@@ -8,5 +8,6 @@ class CreatePetCommand
 {
     public function __construct(
         public CreatePetDto $data
-    ) {}
+    ) {
+    }
 }

@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Lista zwierząt</title>
+    <title>Animals list</title>
     <style>
         body {
             font-family: sans-serif;

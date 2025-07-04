@@ -7,7 +7,9 @@ use App\Services\PetApiService;
 
 class GetPetByIdHandler
 {
-    public function __construct(protected PetApiService $petApiService) {}
+    public function __construct(protected PetApiService $petApiService)
+    {
+    }
 
     public function handle(GetPetByIdQuery $query): ?array
     {

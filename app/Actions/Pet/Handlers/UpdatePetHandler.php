@@ -11,7 +11,9 @@ use InvalidArgumentException;
 
 class UpdatePetHandler
 {
-    public function __construct(protected PetApiService $petApiService) {}
+    public function __construct(protected PetApiService $petApiService)
+    {
+    }
 
     public function handle(UpdatePetCommand $command): bool
     {
