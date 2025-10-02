@@ -13,11 +13,13 @@ use Exception;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use App\Data\Pets\Dto\PetDto;
 
 class PetController extends Controller
 {
     public function index(): View
     {
+        /** @var PetDto[] $pets */
         $pets = Bus::dispatch(new GetPetsQuery('available'));
 
         return view('pets.index', compact('pets'));

@@ -99,26 +99,26 @@
         <tbody>
             @foreach ($pets as $pet)
                 <tr>
-                    <td>{{ $pet['id'] ?? '-' }}</td>
-                    <td>{{ $pet['name'] ?? '-' }}</td>
-                    <td>{{ $pet['category']['name'] ?? '-' }}</td>
+                    <td>{{ $pet->id ?? '-' }}</td>
+                    <td>{{ $pet->name ?? '-' }}</td>
+                    <td>{{ $pet->category['name'] ?? '-' }}</td>
                     <td>
-                        @foreach ($pet['photoUrls'] ?? [] as $url)
-                                @foreach ($pet['photoUrls'] ?? [] as $url)
+                        @foreach ($pet->photoUrls ?? [] as $url)
+                                @foreach ($pet->photoUrls ?? [] as $url)
                                     <img src="{{ $url }}" alt="Pet photo" style="max-width: 100px; max-height: 100px; margin: 4px;">
                                 @endforeach
                         @endforeach
                     </td>
                     <td>
-                        @foreach ($pet['tags'] ?? [] as $tag)
-                            <span>{{ $tag['name'] ?? '-' }}</span><br>
+                        @foreach ($pet->tags ?? [] as $tag)
+                            <span>{{ $tag->name ?? '-' }}</span><br>
                         @endforeach
                     </td>
-                    <td>{{ $pet['status'] ?? '-' }}</td>
+                    <td>{{ $pet->status ?? '-' }}</td>
                     <td class="actions">
-                        <a href="/pets/{{ $pet['id'] }}/edit" class="button" style="background-color: #2196F3;">Edit</a>
+                        <a href="/pets/{{ $pet->id }}/edit" class="button" style="background-color: #2196F3;">Edit</a>
 
-                        <form action="/pets/{{ $pet['id'] }}" method="POST" onsubmit="return confirm('Are you sure?');">
+                        <form action="/pets/{{ $pet->id }}" method="POST" onsubmit="return confirm('Are you sure?');">
                             @csrf
                             @method('DELETE')
                             <button type="submit">Remove</button>

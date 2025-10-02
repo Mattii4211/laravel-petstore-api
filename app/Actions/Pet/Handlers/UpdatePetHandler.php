@@ -29,7 +29,7 @@ class UpdatePetHandler
         }
 
         $data = [
-            'id' => $pet['id'],
+            'id' => $pet->id,
             'name' => $command->data->name,
             'status' => $status->value,
             'photoUrls' => $command->data->photoUrls,
@@ -38,7 +38,7 @@ class UpdatePetHandler
 
         if ($command->data->category) {
             $data['category'] = [
-                'id' => is_array($pet['category']) ? $pet['category']['id'] : time(),
+                'id' => is_array($pet->category) ? $pet->category['id'] : time(),
                 'name' => $command->data->category,
             ];
         }

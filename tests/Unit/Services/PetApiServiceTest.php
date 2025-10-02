@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Services;
 
+use App\Data\Pets\Dto\PetDto;
 use App\Services\PetApiService;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
@@ -16,32 +17,37 @@ class PetApiServiceTest extends TestCase
         $this->service = new PetApiService();
     }
 
-    public function testFindByStatusReturnsArray(): void
+    public function testFindByStatusReturnsDtoArray(): void
     {
         Http::fake([
             '*' => Http::response([
-                ['id' => 1, 'name' => 'dog', 'status' => 'available'],
-                ['id' => 2, 'name' => 'cat', 'status' => 'available'],
+                ['id' => 1, 'name' => 'dog', 'status' => 'available', 'photoUrls' => [], 'tags' => null, 'category' => null],
+                ['id' => 2, 'name' => 'cat', 'status' => 'available', 'photoUrls' => [], 'tags' => null, 'category' => null],
             ], 200),
         ]);
 
         $result = $this->service->findByStatus('available');
+
         $this->assertIsArray($result);
         $this->assertCount(2, $result);
-        $this->assertArrayHasKey('id', $result[0]);
-        $this->assertArrayHasKey('name', $result[0]);
+        $this->assertInstanceOf(PetDto::class, $result[0]);
+        $this->assertEquals(1, $result[0]->id);
+        $this->assertEquals('dog', $result[0]->name);
+        $this->assertEquals(2, $result[1]->id);
+        $this->assertEquals('cat', $result[1]->name);
     }
 
-    public function testFindByIdReturnsArrayOrNull(): void
+    public function testFindByIdReturnsDtoOrNull(): void
     {
         // success case
         Http::fake([
-            '*/pet/1' => Http::response(['id' => 1, 'name' => 'dog'], 200),
+            '*/pet/1' => Http::response(['id' => 1, 'name' => 'dog', 'status' => 'available', 'photoUrls' => [], 'tags' => null, 'category' => null], 200),
         ]);
 
         $pet = $this->service->findById(1);
-        $this->assertIsArray($pet);
-        $this->assertEquals(1, $pet['id']);
+        $this->assertInstanceOf(PetDto::class, $pet);
+        $this->assertEquals(1, $pet->id);
+        $this->assertEquals('dog', $pet->name);
 
         // failure case
         Http::fake([
