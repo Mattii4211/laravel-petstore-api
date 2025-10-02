@@ -10,7 +10,12 @@ use App\Data\Pets\Dto\PetDto;
 
 class PetApiService
 {
-    protected string $baseUrl = 'https://petstore.swagger.io/v2';
+    protected string $baseUrl;
+    
+    public function __construct()
+    {
+        $this->baseUrl = env('PETSTORE_API_URL', 'https://petstore.swagger.io/v2');
+    }
 
     /** @return PetDto[] */
     public function findByStatus(string $status): array
