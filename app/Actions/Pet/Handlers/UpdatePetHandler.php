@@ -33,12 +33,12 @@ class UpdatePetHandler
             'name' => $command->data->name,
             'status' => $status->value,
             'photoUrls' => $command->data->photoUrls,
-            'tags' => array_map(fn ($tag) => ['id' => time(), 'name' => $tag->name], $command->data->tags),
+            'tags' => array_map(fn ($tag) => ['id' => time(), 'name' => $tag->name], $command->data->tags ?? []),
         ];
 
         if ($command->data->category) {
             $data['category'] = [
-                'id' => $pet['category']['id'] ?? time(),
+                'id' => is_array($pet['category']) ? $pet['category']['id'] : time(),
                 'name' => $command->data->category,
             ];
         }

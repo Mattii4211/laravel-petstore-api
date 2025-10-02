@@ -11,6 +11,9 @@ class GetPetsHandler
     {
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function handle(GetPetsQuery $query): array
     {
         return $this->petApiService->findByStatus($query->status);

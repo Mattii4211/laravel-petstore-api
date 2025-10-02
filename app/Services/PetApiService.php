@@ -11,6 +11,9 @@ class PetApiService
 {
     protected string $baseUrl = 'https://petstore.swagger.io/v2';
 
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     public function findByStatus(string $status): array
     {
         $response = Http::get("{$this->baseUrl}/pet/findByStatus", ['status' => $status]);
@@ -26,13 +29,18 @@ class PetApiService
         return $pets;
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     public function findById(int $id): ?array
     {
         $response = Http::get("{$this->baseUrl}/pet/{$id}");
-
         return $response->successful() ? $response->json() : null;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public function create(array $data): ResponseDtoInterface
     {
         $response = Http::post("{$this->baseUrl}/pet", $data);
@@ -46,6 +54,9 @@ class PetApiService
         );
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public function update(array $data): ResponseDtoInterface
     {
         $response = Http::put("{$this->baseUrl}/pet", $data);

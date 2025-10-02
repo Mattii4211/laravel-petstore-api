@@ -23,7 +23,7 @@ class CreatePetHandler
                 'name' => $command->data->category,
             ],
             'photoUrls' => $command->data->photoUrls,
-            'tags' => array_map(fn ($tag) => ['id' => time(), 'name' => $tag->name], $command->data->tags),
+            'tags' => array_map(fn ($tag) => ['id' => time(), 'name' => $tag->name], $command->data->tags ?? []),
             'status' => $command->data->status ?? 'available',
         ];
 

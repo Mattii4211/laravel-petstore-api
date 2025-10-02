@@ -10,6 +10,10 @@ use Spatie\LaravelData\Data;
 
 final class EditPetDto extends Data
 {
+    /**
+     * @param list<string> $photoUrls
+     * @param list<TagDto>|null $tags
+     */
     public function __construct(
         #[Required, StringType]
         public string $name,

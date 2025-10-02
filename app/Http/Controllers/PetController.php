@@ -11,22 +11,24 @@ use App\Data\Pets\Dto\CreatePetDto;
 use App\Data\Pets\Dto\EditPetDto;
 use Exception;
 use Illuminate\Support\Facades\Bus;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class PetController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $pets = Bus::dispatch(new GetPetsQuery('available'));
 
         return view('pets.index', compact('pets'));
     }
 
-    public function create()
+    public function create(): View
     {
         return view('pets.create');
     }
 
-    public function store(CreatePetDto $dto)
+    public function store(CreatePetDto $dto): View|RedirectResponse
     {
         try {
             Bus::dispatch(new CreatePetCommand($dto));
@@ -37,7 +39,7 @@ class PetController extends Controller
         return redirect('/pets');
     }
 
-    public function edit(int $id)
+    public function edit(int $id): View|RedirectResponse
     {
         $pet = Bus::dispatch(new GetPetByIdQuery($id));
 
@@ -48,7 +50,7 @@ class PetController extends Controller
         return view('pets.edit', compact('pet'));
     }
 
-    public function update(EditPetDto $dto, int $id)
+    public function update(EditPetDto $dto, int $id): View|RedirectResponse
     {
         try {
             Bus::dispatch(new UpdatePetCommand($id, $dto));
@@ -59,7 +61,7 @@ class PetController extends Controller
         return redirect('/pets');
     }
 
-    public function destroy(int $id)
+    public function destroy(int $id): View|RedirectResponse
     {
         try {
             Bus::dispatch(new DeletePetCommand($id));

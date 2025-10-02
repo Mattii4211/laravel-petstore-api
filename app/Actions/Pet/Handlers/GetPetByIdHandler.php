@@ -11,6 +11,9 @@ class GetPetByIdHandler
     {
     }
 
+    /**
+      * @return string[]|null
+      */
     public function handle(GetPetByIdQuery $query): ?array
     {
         return $this->petApiService->findById($query->id);
