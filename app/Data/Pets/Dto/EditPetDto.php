@@ -20,9 +20,9 @@ final class EditPetDto extends Data
         #[Required, StringType]
         public string $status,
         #[StringType, Nullable]
-        public ?string $category,
-        #[ArrayType]
-        public array $photoUrls,
+        public ?string $category = null,
+        #[ArrayType, Required]
+        public array $photoUrls = [],
 
         /** @var TagDto[]|null */
         #[ArrayType, Nullable]

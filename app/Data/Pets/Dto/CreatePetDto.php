@@ -19,8 +19,8 @@ final class CreatePetDto extends Data
         public string $name,
         #[Required, StringType]
         public string $category,
-        #[ArrayType]
-        public array $photoUrls,
+        #[ArrayType, Required]
+        public array $photoUrls = [],
 
         /** @var TagDto[]|null */
         #[ArrayType, Nullable]
